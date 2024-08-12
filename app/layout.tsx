@@ -23,7 +23,7 @@ export default function RootLayout({
             <Link href='schuelerDaten'className="block text-lg font-medium hover:text-blue-400 transition"> Schüler Daten </Link>
             <Link href='uebungsfahrt'className="block text-lg font-medium hover:text-blue-400 transition" >Übungsfahrt </Link>
             <Link href='sonderfahrt' className="block text-lg font-medium hover:text-blue-400 transition"> Sonderfahrt</Link>
-            <Link href='vorpruefund' className="block text-lg font-medium hover:text-blue-400 transition"> Vorprüfung</Link>
+            <Link href='vorpruefung' className="block text-lg font-medium hover:text-blue-400 transition"> Vorprüfung</Link>
           </nav>
         </aside>
         <main className="flex-1 p-6">
