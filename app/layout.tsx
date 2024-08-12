@@ -20,10 +20,10 @@ export default function RootLayout({
       <body className="flex min-h-screen bg-gray-900 text-gray-100">
         <aside className="w-64 bg-gray-800 p-6">
           <nav className="space-y-4">
-            <Link href='hallo'className="block text-lg font-medium hover:text-blue-400 transition"> Schüler Daten </Link>
-            <Link href='users'className="block text-lg font-medium hover:text-blue-400 transition" >Übungsfahrt </Link>
-            <Link href='AddtoCard' className="block text-lg font-medium hover:text-blue-400 transition"> Sonderfahrt</Link>
-            <Link href='AddtoCard' className="block text-lg font-medium hover:text-blue-400 transition"> Vorprüfung</Link>
+            <Link href='schuelerDaten'className="block text-lg font-medium hover:text-blue-400 transition"> Schüler Daten </Link>
+            <Link href='uebungsfahrt'className="block text-lg font-medium hover:text-blue-400 transition" >Übungsfahrt </Link>
+            <Link href='sonderfahrt' className="block text-lg font-medium hover:text-blue-400 transition"> Sonderfahrt</Link>
+            <Link href='vorpruefund' className="block text-lg font-medium hover:text-blue-400 transition"> Vorprüfung</Link>
           </nav>
         </aside>
         <main className="flex-1 p-6">
