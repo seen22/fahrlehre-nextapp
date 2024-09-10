@@ -1,7 +1,10 @@
 import Image from 'next/image'
+import SchuelerdatenPage from './schuelerDaten/page'
 
 export default function Home() {
   return (
-    <main> </main>
+    <main>
+      <SchuelerdatenPage></SchuelerdatenPage> 
+    </main>
   )
 }
