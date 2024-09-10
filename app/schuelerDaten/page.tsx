@@ -19,7 +19,7 @@ export default function schuelerDatenPage() {
 
     if (response.ok && result.id) {
       console.log(' Saved successfully');
-      window.location.href = `/DachboardPage?id=${result.id}`;
+      window.location.href = `/DashboardPage?id=${result.id}`;
       //reset();  
     } else {
       console.error('Failed to save data', result.message);
