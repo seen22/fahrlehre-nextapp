@@ -53,7 +53,7 @@ const vorpruefung = () => {
 
       if (response.ok && result.message === 'Data stored successfully') {
         console.log('Checkbox data saved successfully');
-        window.location.href = `/DachboardPage?id=${result.id}`;
+        window.location.href = `/DashboardPage?id=${result.id}`;
       } else {
         console.error('Failed to save checkbox data');
       }

@@ -37,14 +37,14 @@ export default function DashboardPage() {
           onClick={() => navigateTo('/uebungsfahrt')}
           className="w-full bg-gray-800 text-white p-4 rounded-md hover:bg-gray-700 transition"
         >
-          Go to Users Page
+          Übungsfahrt
         </button>
 
         <button
           onClick={() => navigateTo('/vorpruefung')}
           className="w-full bg-gray-800 text-white p-4 rounded-md hover:bg-gray-700 transition"
         >
-          Go to Add to Card
+          Vorprüfung
         </button>
       </div>
     </div>
