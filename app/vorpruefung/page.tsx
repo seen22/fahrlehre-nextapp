@@ -1,8 +1,8 @@
 'use client';
-import React, { useEffect,useState } from 'react';
-import {useForm} from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 
-const vorpruefung = () => {
+const FormWithDropdowns = () => {
   const { register, handleSubmit } = useForm();
   const [studentId, setStudentId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
@@ -24,44 +24,55 @@ const vorpruefung = () => {
     const id = urlParams.get('id');
     if (id) {
       setStudentId(id);
-      console.log('Extracted ID from URL:', id);  // Log to verify
+      console.log('Extracted ID from URL:', id);
     } else {
       console.error('No ID found in URL');
     }
   }, []);
 
   const onSubmit = async (dropdownList: any) => {
-
     if (!studentId) {
       console.error('No student ID found.');
       return;
     }
+    console.log('3 Dropdown data saved successfully');
 
     try {
-      // Include the student ID in the data to be submitted
-      const dataToSubmit = { ...dropdownList, id: studentId };
+      // RDF Triples für die Dropdown-Auswahl erstellen
+      const triples = Object.entries(dropdownList).map(([key, value]) => {
+        const predicate = `https://github.com/seen22/fahrlere-nextapp/${key}`;
+        const object = `"${value}"`;
+        return `<https://github.com/seen22/fahrlere-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
+      }).join('\n');
 
-      // Send data to the API
-      const response = await fetch('/api/saveStudentData', {
+      const updateQuery = `
+        PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
+        INSERT DATA {
+          ${triples}
+        }
+      `;
+      console.log('2 Dropdown data saved successfully');
+      // Anfrage an Fuseki senden
+      const response = await fetch('http://localhost:3030/FahrlehrerApp/update', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/sparql-update',
         },
-        body: JSON.stringify(dataToSubmit),
+        body: updateQuery,
       });
-      const result = await response.json();
-
-      if (response.ok && result.message === 'Data stored successfully') {
-        console.log('Checkbox data saved successfully');
-        window.location.href = `/DashboardPage?id=${result.id}`;
+      console.log('1 Dropdown data saved successfully');
+      
+      const result = await response.text();
+      if (response.ok) {
+        console.log('Dropdown data saved successfully');
+        window.location.href = `/DashboardPage?id=${studentId}`;
       } else {
-        console.error('Failed to save checkbox data');
+        console.error('Failed to save dropdown data:', result);
       }
     } catch (error) {
-      console.error('Error saving checkbox data:', error);
+      console.error('Error saving dropdown data:', error);
     }
   };
-
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
@@ -90,8 +101,9 @@ const vorpruefung = () => {
           <div key={name} className="flex items-center justify-between">
             <label className="text-sm font-medium">{label}</label>
             <select
-              {...register(name)} // Integrating react-hook-form's register function
-            className="ml-4 p-2 bg-gray-300 text-black rounded-md"
+              {...register(name)}
+              className="ml-4 p-2 bg-gray-300 text-black rounded-md"
+              onChange={handleChange}
             >
               <option value="">Select</option>
               <option value="+">+</option>
@@ -100,7 +112,6 @@ const vorpruefung = () => {
               <option value="--">--</option>
             </select>
           </div>
-          
         ))}
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">
           Speichern
@@ -110,4 +121,4 @@ const vorpruefung = () => {
   );
 };
 
-export default vorpruefung;
+export default FormWithDropdowns;
