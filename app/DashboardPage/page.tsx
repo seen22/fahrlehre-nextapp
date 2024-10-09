@@ -50,7 +50,7 @@ export default function DashboardPage() {
   
     try {
       // Fetch RDF data from Fuseki
-      const response = await fetch('http://localhost:3030/test_next/query', {
+      const response = await fetch('http://localhost:3030/FahrlehrerApp/query', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded', // Correct content type for SPARQL queries
