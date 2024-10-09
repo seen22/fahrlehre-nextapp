@@ -191,7 +191,7 @@ export default function DashboardPage() {
   if (Object.keys(AdToCard).length > 0) {
     y += 10; // Add some spacing before the next section
     doc.setFontSize(14);
-    doc.text("Add to Card Page:", 10, y);
+    doc.text("Vorprüfung:", 10, y);
     y += 10;
     doc.setFontSize(12);
   
@@ -208,7 +208,7 @@ export default function DashboardPage() {
   if (Object.keys(userPageData).length > 0) {
     y += 10; // Add some spacing before the next section
     doc.setFontSize(14);
-    doc.text("Users Page:", 10, y);
+    doc.text("Übungsfahrt:", 10, y);
     y += 10;
     doc.setFontSize(12);
   
