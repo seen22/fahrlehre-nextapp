@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
 import BackButton from '../BackButton/page';
 
-const uebungsfahrt = () => {
+const Uebungsfahrt = () => {
   const { register, handleSubmit } = useForm();
   const [studentId, setStudentId] = useState<string | null>(null);
 
@@ -90,6 +90,6 @@ const uebungsfahrt = () => {
   );
 };
 
-export default uebungsfahrt;
+export default Uebungsfahrt;
 
 
