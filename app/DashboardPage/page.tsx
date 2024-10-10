@@ -2,7 +2,7 @@
 import jsPDF from 'jspdf';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-// import Sidebar from '../Sidebar/page';
+import Sidebarmenu from '../Sidebarmenu/page';
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -259,6 +259,7 @@ export default function DashboardPage() {
       >
         Download PDF
       </button>
+      <Sidebarmenu></Sidebarmenu>
       </div>
     </div>
   );

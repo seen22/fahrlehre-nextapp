@@ -8,7 +8,7 @@ type Student = {
   lastName: string;
 };
 
-export default function StartSeite() {
+export default function SchuelerList() {
   const [studentList, setStudentList] = useState<Student[]>([]);
   const [filteredStudents, setFilteredStudents] = useState<Student[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
