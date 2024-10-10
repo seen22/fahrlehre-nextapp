@@ -1,6 +1,7 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import React, { useEffect, useState } from 'react';
+import BackButton from '../BackButton/page';
 
 const uebungsfahrt = () => {
   const { register, handleSubmit } = useForm();
@@ -67,6 +68,7 @@ const uebungsfahrt = () => {
 
   return (
     <div className="max-w-xl mx-auto p-4">
+      <BackButton/>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
           <h3 className="font-bold text-lg mb-2">Rollen und Schalten</h3>
@@ -82,6 +84,7 @@ const uebungsfahrt = () => {
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">
           Speichern
         </button>
+        
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import BackButton from '../BackButton/page';
 
 const FormWithDropdowns = () => {
   const { register, handleSubmit } = useForm();
@@ -84,6 +85,7 @@ const FormWithDropdowns = () => {
 
   return (
     <div className="max-w-lg mx-auto p-4">
+      <BackButton></BackButton>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {[
           { label: 'Stop', name: 'stop' },
@@ -116,6 +118,7 @@ const FormWithDropdowns = () => {
         <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">
           Speichern
         </button>
+        
       </form>
     </div>
   );
