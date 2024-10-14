@@ -5,3 +5,8 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 
 fahrl:Lesson rdf:type rdfs:Class. 
+
+schema:eyewear rdf:type rdf:Property;
+       rdfs:domain fahrl:Lesson; 
+      rdfs:range xsd:boolean.
+
