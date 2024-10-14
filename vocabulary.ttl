@@ -6,8 +6,11 @@
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 
 fahrl:Lesson rdf:type rdfs:Class. 
+fahrl:Student rdf:type rdfs:Class.
 
 schema:eyewear rdf:type owl:DatatypeProperty;
        rdfs:domain fahrl:Lesson; 
       rdfs:range xsd:boolean.
-
+fahrl:hasStudent rdf:type owl:ObjectPropery:
+              rdfs:domain fahrl:Lesson; 
+               rdfs:range fahrl:Student.
