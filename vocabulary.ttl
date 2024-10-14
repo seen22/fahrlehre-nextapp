@@ -1,0 +1,7 @@
+@PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#> .
+@PREFIX schema: <http://schema.org/> .
+@PREFIX xsd: <http://www.w3.org/2001/XMLSchema>.
+@PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+
+fahrl:Lesson rdf:type rdfs:Class. 
