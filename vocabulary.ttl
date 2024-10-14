@@ -1,6 +1,6 @@
 @prefix fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#> .
 @prefix schema: <http://schema.org/> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -9,5 +9,5 @@ fahrl:Lesson rdf:type rdfs:Class.
 
 schema:eyewear rdf:type owl:DatatypeProperty;
        rdfs:domain fahrl:Lesson; 
-      rdfs:range xsd:Boolean.
+      rdfs:range xsd:boolean.
 
