@@ -9,5 +9,5 @@ fahrl:Lesson rdf:type rdfs:Class.
 
 schema:eyewear rdf:type owl:DatatypeProperty;
        rdfs:domain fahrl:Lesson; 
-      rdfs:range xsd:boolean.
+      rdfs:range xsd:Boolean.
 
