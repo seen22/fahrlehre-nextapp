@@ -7,13 +7,15 @@
 
 fahrl:Lesson rdf:type rdfs:Class. 
 fahrl:Student rdf:type rdfs:Class.
+fahrl:Wetter rdf:type rdfs:Class.
 
 fahrl:eyewear rdf:type owl:DatatypeProperty;
               rdfs:domain fahrl:Lesson; 
               rdfs:range xsd:boolean.
 
 fahrl:eyewear rdfs:subPropertyOf schema:eyewear;
-              rdfs:domain fahrl:Student.
+              rdfs:domain fahrl:Student;
+              rdfs:range fahrl:Wetter.
 fahrl:hasStudent rdf:type owl:ObjectProperty;
                  rdfs:domain fahrl:Lesson; 
                  rdfs:range fahrl:Student.
