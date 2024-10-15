@@ -59,21 +59,22 @@ fahrl:NightDrive rdf:type owl:DatatypeProperty ;
 fahrl:PreTest rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
-fahrl:Performance rdf:type owl:Class ;
-                  owl:oneOf ( fahrl:Plus fahrl:Minus fahrl:X ) .
-
-fahrl:preTestProp1 rdf:type owl:ObjectProperty ;
+fahrl:RightTurn rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
-                   rdfs:range fahrl:Performance .
+                   rdfs:range xsd:string .
+fahrl:LeftTurn rdf:type owl:DatatypeProperty ;
+                   rdfs:domain fahrl:PreTest ;
+                   rdfs:range xsd:string .
+fahrl:Speed rdf:type owl:DatatypeProperty ;
+                   rdfs:domain fahrl:PreTest ;
+                   rdfs:range xsd:string .
+fahrl:BicycleProtection rdf:type owl:DatatypeProperty ;
+                   rdfs:domain fahrl:PreTest ;
+                   rdfs:range xsd:string .
 
-# Definiere die Werte Plus, Minus, X
-fahrl:Plus rdf:type fahrl:Performance .
-fahrl:Minus rdf:type fahrl:Performance .
-fahrl:X rdf:type fahrl:Performance .
-
-
-
-
+fahrl: RightTurn rdf:type owl:DatatypeProperty ;
+                   rdfs:domain fahrl:PreTest ;
+                   rdfs:range xsd:string .
 
 
 
