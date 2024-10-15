@@ -19,5 +19,5 @@ fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
                  rdfs:domain fahrl:Student.
 
 fahrl:FirstName rdf:type owl:DatatypeProperty;
-                rdf:domain fahlr:Student;
-                rdfs:rang fahrl:String.
+                rdfs:domain fahlr:Student;
+                rdfs:rang xsd:string.
