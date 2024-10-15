@@ -28,13 +28,18 @@ const Uebungsfahrt = () => {
     try {
       // Construct the RDF data for the checkboxes
       const triples = Object.entries(checkboxData).map(([key, value]) => {
-        const predicate = `https://github.com/seen22/fahrlere-nextapp/${key.replace(/\s+/g, '_')}`;
+        const predicate = `fahrl:${key}`;
         const object = value ? `"true"` : `"false"`;
-        return `<https://github.com/seen22/fahrlere-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
+        return `<https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
       }).join('\n');
 
       const updateQuery = `
-        PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
+       PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
+          PREFIX schema: <http://schema.org/>
+          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX owl: <http://www.w3.org/2002/07/owl#>
         INSERT DATA {
           ${triples}
         }

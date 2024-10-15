@@ -5,7 +5,7 @@ import { DataFactory, Writer } from 'n3';
 import { SetStateAction, useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import { useRouter } from 'next/navigation';
-import { v4 as uuidv4 } from 'uuid'; // UUID für eindeutige IDs
+import { v4 as uuidv4 } from 'uuid';
 import BackButton from '../BackButton/page';
 
 
@@ -18,10 +18,13 @@ export default function HalloPage() {
     // Funktion zum Senden der Daten an den Fuseki-Server
     const sendToFuseki = async (rdfData : any) => {
       const updateQuery = `
-         PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
-        PREFIX schema: <http://schema.org/>
-        PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-        
+         PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
+          PREFIX schema: <http://schema.org/>
+          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                
         INSERT DATA {
           ${rdfData}
         }
@@ -56,32 +59,39 @@ export default function HalloPage() {
     
       // Create a unique subject using timestamp or another identifier
       const uniqueID = uuidv4();
-      const uniqueSubject = `https://github.com/seen22/fahrlere-nextapp/formEntry-${uniqueID}`;
+      const uniqueSubject = `https://github.com/seen22/fahrlehre-nextapp/formEntry-${uniqueID}`;
       const subject = namedNode(uniqueSubject);
     
       // Get the current timestamp in local time
       const currentTimestamp = new Date().toLocaleString("sv-SE", { timeZone: 'Europe/Berlin' }).replace(' ', 'T') + 'Z';
     
       // Add the timestamp
-      const timestampPredicate = namedNode('https://github.com/seen22/fahrlere-nextapp/timestamp');
-      const timestampObject = literal(currentTimestamp, namedNode('https://github.com/seen22/fahrlere-nextapp/XMLSchema#dateTime'));
+      const timestampPredicate = namedNode('fahrl:timestamp');
+      const timestampObject = literal(currentTimestamp);
       writer.addQuad(subject, timestampPredicate, timestampObject);
+        
     
       // Map form data to RDF triples
       Object.entries(formData).forEach(([key, value]) => {
-        if (key === 'birthDate') {
-          const predicate = namedNode('https://github.com/seen22/fahrlere-nextapp/birthDate');
-          const object = literal(value as string | number, namedNode('http://www.w3.org/2001/XMLSchema#date'));
+        let predicate, object;
+        if (key === 'hasDateOfBirth') {
+           predicate = namedNode('fahrl:hasDateOfBirth');
+           object = literal(value as string | number);
           writer.addQuad(subject, predicate, object);
-        } else if (key === 'eyewear') {
-          const predicate = namedNode('http://schema.org/eyewear');
-          const object = literal(value as string | number);
+        } else if (key === 'hasEyewear') {
+           predicate = namedNode('fahrl:hasEyewear');
+           object =  literal(value as 'true', namedNode('http://www.w3.org/2001/XMLSchema#boolean'));
           writer.addQuad(subject, predicate, object);
-        } else {
-          const predicate = namedNode(`https://github.com/seen22/fahrlere-nextapp/${key}`);
-          const object = literal(value as string | number);
+        } else if (key === 'hasFirstName') {
+          predicate = namedNode('fahrl:hasFirstName');
+          object = literal(value as string);
+          writer.addQuad(subject, predicate, object);
+        } else if (key === 'hasLastName') {
+          predicate = namedNode('fahrl:hasLastName');
+          object = literal(value as string);
           writer.addQuad(subject, predicate, object);
         }
+        
       });
     
       // Serialize and send to Fuseki
@@ -91,19 +101,25 @@ export default function HalloPage() {
         } else {
           console.log("RDF-Triple:\n", result);
           setRdfData(result);
-          sendToFuseki(result); // Send the serialized data to Fuseki
+          sendToFuseki(result); 
 
           router.push(`/DashboardPage?id=${uniqueID}`);
         }
       });
     };
     
-  const handleChange = (event: { target: { name: any; value: any; }; }) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
+    const handleChange = (event: { target: { name: any; value: any; type: string; checked: boolean; }; }) => {
+      let { name, value, type, checked } = event.target;
+  
+      if (type === 'checkbox') {
+        value = checked ? 'true' : 'false';
+      }
+  
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    };
    const getErrorMessage = (error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined): string | undefined => {
     if (error && 'message' in error) {
       return error.message as string;
@@ -122,10 +138,10 @@ export default function HalloPage() {
           <label className="block text-sm font-medium text-gray-300">Vorname</label>
           <input
             type="text"
-            {...register('firstName', { required: 'Vorname ist erforderlich' })}
+            {...register('hasFirstName', { required: 'Vorname ist erforderlich' })}
             className="mt-1 block w-full p-2 bg-gray-700 text-white rounded-md"
             onChange={handleChange}
-            name="firstName" 
+            name="hasFirstName" 
           />
           {getErrorMessage(errors.firstName) && <span className="text-red-500 text-sm">{getErrorMessage(errors.firstName)}</span>}
         </div>
@@ -134,10 +150,10 @@ export default function HalloPage() {
           <label className="block text-sm font-medium text-gray-300">Nachname</label>
           <input
             type="text"
-            {...register('lastName', { required: 'Nachname ist erforderlich' })}
+            {...register('hasLastName', { required: 'Nachname ist erforderlich' })}
             className="mt-1 block w-full p-2 bg-gray-700 text-white rounded-md"
             onChange={handleChange}
-            name="lastName"
+            name="hasLastName"
           />
           {getErrorMessage(errors.lastName) && <span className="text-red-500 text-sm">{getErrorMessage(errors.lastName)}</span>}
         </div>
@@ -146,10 +162,10 @@ export default function HalloPage() {
           <label className="block text-sm font-medium text-gray-300">Geburtsdatum</label>
           <input
             type="date"
-            {...register('birthDate', { required: 'Geburtsdatum ist erforderlich' })}
+            {...register('hasDateOfBirth', { required: 'Geburtsdatum ist erforderlich' })}
             className="mt-1 block w-full p-2 bg-gray-700 text-white rounded-md"
             onChange={handleChange}
-            name="birthDate"
+            name="hasDateOfBirth"
           />
           {getErrorMessage(errors.birthDate) && <span className="text-red-500 text-sm">{getErrorMessage(errors.birthDate)}</span>}
         </div>
@@ -157,10 +173,10 @@ export default function HalloPage() {
         <div className="flex items-center">
           <input
             type="checkbox"
-            {...register('eyewear')}
+            {...register('hasEyewear')}
             className="h-4 w-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500"
             onChange={handleChange}
-            name="eyewear"
+            name="hasEyewear"
           /> 
           <label className="ml-2 text-sm font-medium text-gray-300">Sehhilfe</label>
         </div> 

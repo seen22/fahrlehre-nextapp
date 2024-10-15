@@ -11,9 +11,9 @@ export default function DashboardPage() {
   const navigateTo = (path: string) => {
     router.push(`${path}?id=${studentId}`);
   };
-  const handleDownload = () => {
+  const handleDownload = async () => {
     // Rufe die Funktion auf, um die neuesten Daten abzurufen und das PDF zu generieren
-    fetchFromFuseki();
+    await fetchFromFuseki();
   };
 
   useEffect(() => {
@@ -38,12 +38,12 @@ export default function DashboardPage() {
   
   
     const latestDataQuery = `
-      PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
+      PREFIX ex: <https://github.com/seen22/fahrlehre-nextapp/>
       SELECT ?subject ?predicate ?object
       WHERE {
         ?subject ex:timestamp ?timestamp .
         ?subject ?predicate ?object .
-         FILTER(?subject = <https://github.com/seen22/fahrlere-nextapp/formEntry-${studentId}>)
+        FILTER(?subject = <https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}>)
       }
       ORDER BY DESC(?timestamp)
     `; 
@@ -117,8 +117,6 @@ export default function DashboardPage() {
       console.log('Predicate:', predicateValue);
       console.log('Object:', objectValue);
   
-      // Letzten Teil der Subject-URI extrahieren
-      const subjectKey = subjectValue.split('/').pop() || 'subject';
       // Letzten Teil der Predicate-URI extrahieren
       const predicateKey = predicateValue.split('/').pop() || 'predicate';
   
@@ -138,21 +136,22 @@ export default function DashboardPage() {
   const doc = new jsPDF();
   
   // Set a main title for the PDF
-  doc.setFontSize(18);
-  doc.text("GOLD Fahrschule", 10, 10);
+  doc.setFontSize(20);
+  doc.text("GOLD Fahrschule", 65, 20);
   
   // Subtitle or additional information
-  doc.setFontSize(14);
-  doc.text("Fahrschule Datenübersicht", 10, 20);
+  // doc.setFontSize(14);
+  // doc.text("Fahrschule Datenübersicht", 10, 20);
   
   let y = 40; // Starting y position for content
   doc.setFontSize(12);
   
   // Separate the data into categories
-  const studentDataKeys = ['firstName', 'lastName', 'birthDate', 'eyewear']; // Keys that belong to "Schülerdaten"
-  const AdToCardKeys = ['stop', 'rightTurn', 'multiLaneRightTurn', 'railwayCrossing', 'leftTurn', 'multiLaneLeftTurn', 'gearSelection', 'bikeLane', 'bikeOvertake', 'entrance', 'speedAdjustment']; // Keys that belong to "Users Page"
-  const userPageDataKey =['Bremsübungen', 'Abbremsen_und_Schalten'];
+  const studentDataKeys = ['fahrl:hasFirstName', 'fahrl:hasLastName', 'fahrl:hasDateOfBirth', 'fahrl:hasEyewear']; 
+  const AdToCardKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', 'fahrl:railwayCrossing', 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance', 'fahrl:speedAdjustment']; // Keys that belong to "Users Page"
+  const userPageDataKey =['fahrl:Bremsübungen', 'fahrl:Abbremsen_und_Schalten'];
   
+
   const studentData: { [key: string]: string } = {};
   const AdToCard: { [key: string]: string } = {};
   const userPageData: {[key:string]: string} = {};
@@ -207,7 +206,7 @@ export default function DashboardPage() {
   }
   if (Object.keys(userPageData).length > 0) {
     y += 10; // Add some spacing before the next section
-    doc.setFontSize(14);
+    doc.setFontSize(14); 
     doc.text("Übungsfahrt:", 10, y);
     y += 10;
     doc.setFontSize(12);
