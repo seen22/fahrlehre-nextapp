@@ -21,3 +21,6 @@ fahrl:eyewear rdf:type owl:DatatypeProperty;
               rdfs:domain fahrl:DrivingLesson; 
               rdfs:range xsd:boolean .
 
+fahrl:Brille rdfs:subPropertyOf schema:eyewear;
+              rdfs:domain fahrl:Student;
+              rdfs:range fahrl:DrivingLesson.
