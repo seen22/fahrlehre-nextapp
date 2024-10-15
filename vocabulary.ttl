@@ -50,6 +50,12 @@ fahrl:SpecialDrive rdf:type rdfs:Class ;
 fahrl:CountryRoadDrives rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:SpecialDrive ;
                       rdfs:range xsd:boolean .
+fahrl:HighwayDrives rdf:type owl:DatatypeProperty ;
+                      rdfs:domain fahrl:SpecialDrive ;
+                      rdfs:range xsd:boolean .
+fahrl:NightDrive rdf:type owl:DatatypeProperty ;
+                      rdfs:domain fahrl:SpecialDrive ;
+                      rdfs:range xsd:boolean .
 
 
 
