@@ -13,7 +13,7 @@ fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
                       rdfs:range fahrl:DrivingLesson.
 
 fahrl:firstName rdf:type owl:DatatypeProperty;
-                rdfs:domain fahlr:Student;
+                rdfs:domain fahrl:Student;
                 rdfs:range rdfs:Literal .
 
 
