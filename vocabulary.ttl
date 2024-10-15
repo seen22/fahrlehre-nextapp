@@ -7,17 +7,17 @@
 
 fahrl:DrivingLesson rdf:type rdfs:Class. 
 fahrl:Student rdf:type rdfs:Class.
-fahrl:Wetter rdf:type rdfs:Class.
+
+fahrl:hasDrivingLesson rdf:type owl:ObjectProperty; 
+                       rdfs:domain fahrl:Student;
+                      rdfs:range fahrl:DrivingLesson.
+
+fahrl:firstName rdf:type owl:DatatypeProperty;
+                rdfs:domain fahlr:Student;
+                rdfs:range rdfs:Literal .
 
 
 fahrl:eyewear rdf:type owl:DatatypeProperty;
               rdfs:domain fahrl:DrivingLesson; 
               rdfs:range xsd:boolean .
 
-fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
-                 rdfs:range fahrl:DrivingLesson; 
-                 rdfs:domain fahrl:Student .
-
-fahrl:FirstName rdf:type owl:DatatypeProperty;
-                rdfs:domain fahlr:Student;
-                rdfs:range rdfs:Literal .
