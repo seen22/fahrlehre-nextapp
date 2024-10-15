@@ -7,9 +7,6 @@
 
 fahrl:DrivingLesson rdf:type rdfs:Class. 
 fahrl:Student rdf:type rdfs:Class.
-fahrl:PracticeDrive rdf:type rdfs:Class.
-fahrl:PracticeDrive rdf:type rdfs:Class.
-fahrl:PracticeDrive rdf:type rdfs:Class.
 
 fahrl:hasFirstName rdf:type owl:DatatypeProperty;
                 rdfs:domain fahrl:Student;
