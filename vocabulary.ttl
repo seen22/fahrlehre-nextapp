@@ -5,17 +5,19 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 
-fahrl:Lesson rdf:type rdfs:Class. 
+fahrl:DrivingLesson rdf:type rdfs:Class. 
 fahrl:Student rdf:type rdfs:Class.
 fahrl:Wetter rdf:type rdfs:Class.
 
+
 fahrl:eyewear rdf:type owl:DatatypeProperty;
-              rdfs:domain fahrl:Lesson; 
+              rdfs:domain fahrl:DrivingLesson; 
               rdfs:range xsd:boolean.
 
-fahrl:Brille rdfs:subPropertyOf schema:eyewear;
-              rdfs:domain fahrl:Student;
-              rdfs:range fahrl:Wetter.
-fahrl:hasStudent rdf:type owl:ObjectProperty;
-                 rdfs:domain fahrl:Lesson; 
-                 rdfs:range fahrl:Student.
+fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
+                 rdfs:range fahrl:DrivingLesson; 
+                 rdfs:domain fahrl:Student.
+
+fahrl:FirstName rdf:type owl:DatatypeProperty;
+                rdf:domain fahlr:Student;
+                rdfs:rang fahrl:String.
