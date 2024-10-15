@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FiMenu, FiX } from 'react-icons/fi'; // FiX für das Schließen-Symbol
 import Link from 'next/link';
+import SchuelerList from '../SchuelerList/page';
 
 export default function Sidebarmenu() {
   const [isOpen, setIsOpen] = useState(false); // Startet geschlossen
@@ -27,7 +28,7 @@ export default function Sidebarmenu() {
                 Schüler Formular
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link href="/uebungsfahrt" className="block text-lg font-medium hover:text-blue-400 transition" onClick={toggleMenu}>
               Übungsfahrt
               </Link>
@@ -41,7 +42,8 @@ export default function Sidebarmenu() {
               <Link href="/DashboardPage" className="block text-lg font-medium hover:text-blue-400 transition" onClick={toggleMenu}>
                 Dashboard
               </Link>
-            </li>
+            </li> */}
+            <SchuelerList></SchuelerList>
           </ul>
         </nav>
       )}
