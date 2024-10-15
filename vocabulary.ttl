@@ -72,10 +72,6 @@ fahrl:BicycleProtection rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
                    rdfs:range xsd:string .
 
-fahrl: RightTurn rdf:type owl:DatatypeProperty ;
-                   rdfs:domain fahrl:PreTest ;
-                   rdfs:range xsd:string .
-
 
 
 
