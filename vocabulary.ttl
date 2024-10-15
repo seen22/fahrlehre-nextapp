@@ -26,17 +26,17 @@ fahrl:hasEyewear rdf:type owl:DatatypeProperty ;
 
 fahrl:hasDrivingLesson rdf:type owl:ObjectProperty; 
                        rdfs:domain fahrl:Student;
-                      rdfs:range fahrl:DrivingLesson.
+                       rdfs:range fahrl:DrivingLesson.
 
 fahrl:PracticeDrive rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
 fahrl:BrakingExercises rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
-                      rdfs:range xsd:boolean .
+                      rdfs:range xsd:boolean.
 fahrl:GearShiftingExercises rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
-                      rdfs:range xsd:boolean .
+                      rdfs:range xsd:boolean.
 fahrl:SpeedAdjustment rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean .
@@ -67,7 +67,7 @@ fahrl:Speed rdf:type owl:DatatypeProperty ;
                    rdfs:range xsd:string .
 fahrl:BicycleProtection rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
-                   rdfs:range xsd:string .
+                   rdfs:range xsd:string.
 
 
 
