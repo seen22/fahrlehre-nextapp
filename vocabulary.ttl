@@ -12,12 +12,12 @@ fahrl:Wetter rdf:type rdfs:Class.
 
 fahrl:eyewear rdf:type owl:DatatypeProperty;
               rdfs:domain fahrl:DrivingLesson; 
-              rdfs:range xsd:boolean.
+              rdfs:range xsd:boolean .
 
 fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
                  rdfs:range fahrl:DrivingLesson; 
-                 rdfs:domain fahrl:Student.
+                 rdfs:domain fahrl:Student .
 
 fahrl:FirstName rdf:type owl:DatatypeProperty;
                 rdfs:domain fahlr:Student;
-                rdfs:rang xsd:string.
+                rdfs:range rdfs:Literal .
