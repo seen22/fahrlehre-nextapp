@@ -7,20 +7,72 @@
 
 fahrl:DrivingLesson rdf:type rdfs:Class. 
 fahrl:Student rdf:type rdfs:Class.
+fahrl:PracticeDrive rdf:type rdfs:Class.
+fahrl:PracticeDrive rdf:type rdfs:Class.
+fahrl:PracticeDrive rdf:type rdfs:Class.
+
+fahrl:hasFirstName rdf:type owl:DatatypeProperty;
+                rdfs:domain fahrl:Student;
+                rdfs:range rdfs:Literal .
+
+fahrl:hasLastName rdf:type owl:DatatypeProperty;
+                rdfs:domain fahrl:Student;
+                rdfs:range rdfs:Literal .
+
+fahrl:hasDateOfBirth rdf:type owl:DatatypeProperty ;
+                     rdfs:domain fahrl:Student ;
+                     rdfs:range xsd:date .
+
+fahrl:hasEyewear rdf:type owl:DatatypeProperty ;
+                 rdfs:domain fahrl:Student ;
+                 rdfs:range xsd:boolean .
 
 fahrl:hasDrivingLesson rdf:type owl:ObjectProperty; 
                        rdfs:domain fahrl:Student;
                       rdfs:range fahrl:DrivingLesson.
 
-fahrl:firstName rdf:type owl:DatatypeProperty;
-                rdfs:domain fahrl:Student;
-                rdfs:range rdfs:Literal .
+fahrl:PracticeDrive rdf:type rdfs:Class ;
+                    rdfs:subClassOf fahrl:DrivingLesson .
+
+fahrl:BrakingExercises rdf:type owl:DatatypeProperty ;
+                      rdfs:domain fahrl:PracticeDrive ;
+                      rdfs:range xsd:boolean .
+fahrl:GearShiftingExercises rdf:type owl:DatatypeProperty ;
+                      rdfs:domain fahrl:PracticeDrive ;
+                      rdfs:range xsd:boolean .
+fahrl:SpeedAdjustment rdf:type owl:DatatypeProperty ;
+                      rdfs:domain fahrl:PracticeDrive ;
+                      rdfs:range xsd:boolean .
+
+fahrl:SpecialDrive rdf:type rdfs:Class ;
+                    rdfs:subClassOf fahrl:DrivingLesson .
+
+fahrl:CountryRoadDrives rdf:type owl:DatatypeProperty ;
+                      rdfs:domain fahrl:SpecialDrive ;
+                      rdfs:range xsd:boolean .
 
 
-fahrl:eyewear rdf:type owl:DatatypeProperty;
-              rdfs:domain fahrl:DrivingLesson; 
-              rdfs:range xsd:boolean .
 
-fahrl:Brille rdfs:subPropertyOf schema:eyewear;
-              rdfs:domain fahrl:Student;
-              rdfs:range fahrl:DrivingLesson.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
