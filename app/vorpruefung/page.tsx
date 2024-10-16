@@ -114,9 +114,8 @@ const FormWithDropdowns = () => {
             >
               <option value="">Select</option>
               <option value="+">+</option>
-              <option value="++">++</option>
-              <option value="-">-</option>
-              <option value="--">--</option>
+              <option value="++">-</option>
+              <option value="-">X</option>
             </select>
           </div>
         ))}

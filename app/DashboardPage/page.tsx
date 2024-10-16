@@ -38,10 +38,15 @@ export default function DashboardPage() {
   
   
     const latestDataQuery = `
-      PREFIX ex: <https://github.com/seen22/fahrlehre-nextapp/>
+      PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
+      PREFIX schema: <http://schema.org/>
+          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX owl: <http://www.w3.org/2002/07/owl#>
+
       SELECT ?subject ?predicate ?object
       WHERE {
-        ?subject ex:timestamp ?timestamp .
         ?subject ?predicate ?object .
         FILTER(?subject = <https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}>)
       }
@@ -80,23 +85,6 @@ export default function DashboardPage() {
           console.log('No data available for download');
       }
   
-        // Convert the JSON response to a string (you can format it if needed)
-        // const rdfDataString = JSON.stringify(rdfData, null, 2);
-  
-        // Create a Blob (text file) with the fetched data
-        // const blob = new Blob([rdfDataString], { type: 'application/json' }); // or 'text/turtle' for Turtle format
-  
-        // Create a temporary link element to download the file
-        // const link = document.createElement('a');
-        // link.href = URL.createObjectURL(blob);
-        // link.download = 'latest_data.json'; // or '.ttl' if you're using Turtle format
-  
-        // // Append the link to the body and trigger a click
-        // document.body.appendChild(link);
-        // link.click();
-  
-        // // Remove the link from the DOM
-        // document.body.removeChild(link);
     } catch (error) {
       console.error('Error fetching RDF data:', error);
     }
@@ -146,29 +134,50 @@ export default function DashboardPage() {
   let y = 40; // Starting y position for content
   doc.setFontSize(12);
   
-  // Separate the data into categories
+
   const studentDataKeys = ['fahrl:hasFirstName', 'fahrl:hasLastName', 'fahrl:hasDateOfBirth', 'fahrl:hasEyewear']; 
-  const AdToCardKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', 'fahrl:railwayCrossing', 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance', 'fahrl:speedAdjustment']; // Keys that belong to "Users Page"
-  const userPageDataKey =['fahrl:Bremsübungen', 'fahrl:Abbremsen_und_Schalten'];
+  const sonderfahrtKeys = ['fahrl:CountryRoadDrive', 'fahrl:Highway','fahrl:NightDrive'];
+  const vorpruefungsKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', 'fahrl:railwayCrossing', 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance', 'fahrl:speedAdjustment']; // Keys that belong to "Users Page"
+  const UebungsfahrtKeys = [
+    'fahrl:BrakingExercises',
+    'fahrl:GearShiftingExercises',
+    'fahrl:SpeedAdjustment',
+    'fahrl:RoadUsage',
+    'fahrl:LaneChange',
+    'fahrl:Turning',
+    'fahrl:RightBeforeLeft',
+    'fahrl:PriorityRoadSigns',
+    'fahrl:PedestrianCrossings',
+    'fahrl:Roundabout',
+    'fahrl:RailwayCrossing',
+    'fahrl:Reversing',
+    'fahrl:Uturn',
+    'fahrl:EmergencyBraking',
+    'fahrl:ParallelParking',
+    'fahrl:PerpendicularParking'
+  ];
+  
+  
   
 
   const studentData: { [key: string]: string } = {};
-  const AdToCard: { [key: string]: string } = {};
-  const userPageData: {[key:string]: string} = {};
+  const Uebungsfahrtdata: { [key: string]: string } = {};
+  const vorpruefungsdata: {[key:string]: string} = {};
+  const sonderfahrtdata: {[key:string]: string} = {};
   
   // Split dictionary data into categories
   for (const [key, value] of Object.entries(dictionary)) {
     if (studentDataKeys.includes(key)) {
       studentData[key] = value;
-    } else if (userPageDataKey.includes(key)) {
-      userPageData[key] = value;
-    }else if (AdToCardKeys.includes(key)) {
-      AdToCard[key] = value;
-      
+    } else if (vorpruefungsKeys.includes(key)) {
+      vorpruefungsdata[key] = value;
+    }else if (UebungsfahrtKeys.includes(key)) {
+      Uebungsfahrtdata[key] = value;
+    }else if (sonderfahrtKeys.includes(key)){
+      sonderfahrtdata[key]= value;
     }
   }
-  
-  // Add "Schülerdaten" section
+
   if (Object.keys(studentData).length > 0) {
     doc.setFontSize(14);
     doc.text("Schülerdaten:", 10, y);
@@ -187,14 +196,14 @@ export default function DashboardPage() {
   }
   
   
-  if (Object.keys(AdToCard).length > 0) {
-    y += 10; // Add some spacing before the next section
+  if (Object.keys(Uebungsfahrtdata).length > 0) {
+    y += 10; 
     doc.setFontSize(14);
-    doc.text("Vorprüfung:", 10, y);
+    doc.text("Übungsfahrt:", 10, y);
     y += 10;
     doc.setFontSize(12);
   
-    for (const [key, value] of Object.entries(AdToCard)) {
+    for (const [key, value] of Object.entries(Uebungsfahrtdata)) {
       doc.text(`${key}: ${value}`, 10, y);
       y += 10;
   
@@ -204,14 +213,33 @@ export default function DashboardPage() {
       }
     }
   }
-  if (Object.keys(userPageData).length > 0) {
-    y += 10; // Add some spacing before the next section
-    doc.setFontSize(14); 
-    doc.text("Übungsfahrt:", 10, y);
+
+  if (Object.keys(sonderfahrtdata).length > 0) {
+    y += 10; 
+    doc.setFontSize(14);
+    doc.text("Sonderfahrt:", 10, y);
     y += 10;
     doc.setFontSize(12);
   
-    for (const [key, value] of Object.entries(userPageData)) {
+    for (const [key, value] of Object.entries(sonderfahrtdata)) {
+      doc.text(`${key}: ${value}`, 10, y);
+      y += 10;
+  
+      if (y > 280) { 
+        doc.addPage();
+        y = 10;
+      }
+    }
+  }
+
+  if (Object.keys(vorpruefungsdata).length > 0) {
+    y += 10; // Add some spacing before the next section
+    doc.setFontSize(14); 
+    doc.text("Vorprüfung:", 10, y);
+    y += 10;
+    doc.setFontSize(12);
+  
+    for (const [key, value] of Object.entries(vorpruefungsdata)) {
       doc.text(`${key}: ${value}`, 10, y);
       y += 10;
   
