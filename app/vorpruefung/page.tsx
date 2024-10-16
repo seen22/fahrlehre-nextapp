@@ -41,13 +41,18 @@ const FormWithDropdowns = () => {
     try {
       // RDF Triples für die Dropdown-Auswahl erstellen
       const triples = Object.entries(dropdownList).map(([key, value]) => {
-        const predicate = `https://github.com/seen22/fahrlere-nextapp/${key}`;
-        const object = `"${value}"`;
-        return `<https://github.com/seen22/fahrlere-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
+        const predicate =`fahrl:${key}`;
+        const object = `"${value}"^^xsd:string`; 
+        return `<https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
       }).join('\n');
 
       const updateQuery = `
-        PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
+        PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
+          PREFIX schema: <http://schema.org/>
+          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX owl: <http://www.w3.org/2002/07/owl#>
         INSERT DATA {
           ${triples}
         }
@@ -109,9 +114,8 @@ const FormWithDropdowns = () => {
             >
               <option value="">Select</option>
               <option value="+">+</option>
-              <option value="++">++</option>
-              <option value="-">-</option>
-              <option value="--">--</option>
+              <option value="++">-</option>
+              <option value="-">X</option>
             </select>
           </div>
         ))}

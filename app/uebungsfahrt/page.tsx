@@ -28,13 +28,18 @@ const Uebungsfahrt = () => {
     try {
       // Construct the RDF data for the checkboxes
       const triples = Object.entries(checkboxData).map(([key, value]) => {
-        const predicate = `https://github.com/seen22/fahrlere-nextapp/${key.replace(/\s+/g, '_')}`;
+        const predicate = `fahrl:${key}`;
         const object = value ? `"true"` : `"false"`;
-        return `<https://github.com/seen22/fahrlere-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
+        return `<https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
       }).join('\n');
 
       const updateQuery = `
-        PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
+       PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
+          PREFIX schema: <http://schema.org/>
+          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+          PREFIX owl: <http://www.w3.org/2002/07/owl#>
         INSERT DATA {
           ${triples}
         }
@@ -71,23 +76,91 @@ const Uebungsfahrt = () => {
       <BackButton/>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div>
-          <h3 className="font-bold text-lg mb-2">Rollen und Schalten</h3>
+          <h3 className="font-bold text-xl mb-2">Aufbaustufe</h3> 
           <div className="flex justify-between items-center">
-            <label className="text-sm font-medium">Abbremsen und Schalten</label>
-            <input type="checkbox" {...register('Abbremsen_und_Schalten')} className="h-4 w-4" />
+            <label className="text-lg font-medium">Bremsübungen</label> 
+            <input type="checkbox" {...register('BrakingExercises')} className="h-5 w-5" /> 
           </div>
           <div className="flex justify-between items-center">
-            <label className="text-sm font-medium">Bremsübungen</label>
-            <input type="checkbox" {...register('Bremsübungen')} className="h-4 w-4" />
+            <label className="text-lg font-medium">Schaltübungen</label> 
+            <input type="checkbox" {...register('GearShiftingExercises')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Geschwindigkeitanpassung</label> 
+            <input type="checkbox" {...register('SpeedAdjustment')} className="h-5 w-5" />
           </div>
         </div>
-        <button type="submit" className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition">
+  
+        <div>
+          <h3 className="font-bold text-xl mb-2">Leistungsstufe</h3> 
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Fahrbahnbenutzung</label> 
+            <input type="checkbox" {...register('RoadUsage')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Fahrstreifenwechsel</label> 
+            <input type="checkbox" {...register('LaneChange')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Abbiegen</label> 
+            <input type="checkbox" {...register('Turning')} className="h-5 w-5" />
+          </div>
+        </div>
+  
+        <div>
+          <h3 className="font-bold text-xl mb-2">Vorfahrt</h3> 
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Rechts vor Links</label> 
+            <input type="checkbox" {...register('RightBeforeLeft')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Vorfahrtregelnde Verkehrszeichen</label> 
+            <input type="checkbox" {...register('PriorityRoadSigns')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Fußgängerüberwege</label> 
+            <input type="checkbox" {...register('PedestrianCrossings')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Kreisverkehr</label>
+            <input type="checkbox" {...register('Roundabout')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Bahnübergang</label> 
+            <input type="checkbox" {...register('RailwayCrossing')} className="h-5 w-5" />
+          </div>
+        </div>
+
+        <div>
+          <h3 className="font-bold text-xl mb-2">Grundfahraufgaben</h3> 
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Rückwärtsfahren</label> 
+            <input type="checkbox" {...register('Reversing')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Umkehren</label> 
+            <input type="checkbox" {...register('Uturn')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Gefahrbremsung</label> 
+            <input type="checkbox" {...register('EmergencyBraking.')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Einparken längs</label>
+            <input type="checkbox" {...register('ParallelParking')} className="h-5 w-5" />
+          </div>
+          <div className="flex justify-between items-center">
+            <label className="text-lg font-medium">Einparken quer</label> 
+            <input type="checkbox" {...register('PerpendicularParking')} className="h-5 w-5" />
+          </div>
+        </div>
+  
+        <button type="submit" className="w-full bg-blue-600 text-white p-3 rounded-md hover:bg-blue-700 transition">
           Speichern
         </button>
-        
       </form>
     </div>
-  );
+  );  
 };
 
 export default Uebungsfahrt;
