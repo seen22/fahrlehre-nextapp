@@ -30,99 +30,99 @@ fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
 
                        
 
-fahrl:PracticeDrive rdf:type rdfs:Class ;
+fahrl:practiceDrive rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
-fahrl:BrakingExercises rdf:type owl:DatatypeProperty ;
+fahrl:brakingExercises rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean.
-fahrl:GearShiftingExercises rdf:type owl:DatatypeProperty ;
+fahrl:gearShiftingExercises rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean.
-fahrl:SpeedAdjustment rdf:type owl:DatatypeProperty ;
+fahrl:speedAdjustment rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean .
 
-fahrl:RoadUsage rdf:type owl:DatatypeProperty ;
+fahrl:roadUsage rdf:type owl:DatatypeProperty ;
                 rdfs:domain fahrl:PracticeDrive ;
                 rdfs:range xsd:boolean .
 
-fahrl:LaneChange rdf:type owl:DatatypeProperty ;
+fahrl:laneChange rdf:type owl:DatatypeProperty ;
                  rdfs:domain fahrl:PracticeDrive ;
                  rdfs:range xsd:boolean .
 
-fahrl:Turning rdf:type owl:DatatypeProperty ;
+fahrl:turning rdf:type owl:DatatypeProperty ;
               rdfs:domain fahrl:PracticeDrive ;
               rdfs:range xsd:boolean .
 
-fahrl:RightBeforeLeft rdf:type owl:DatatypeProperty ;
+fahrl:rightBeforeLeft rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean .
 
-fahrl:PriorityRoadSigns rdf:type owl:DatatypeProperty ;
+fahrl:priorityRoadSigns rdf:type owl:DatatypeProperty ;
                         rdfs:domain fahrl:PracticeDrive ;
                         rdfs:range xsd:boolean .
 
-fahrl:PedestrianCrossings rdf:type owl:DatatypeProperty ;
+fahrl:pedestrianCrossings rdf:type owl:DatatypeProperty ;
                           rdfs:domain fahrl:PracticeDrive ;
                           rdfs:range xsd:boolean .
 
-fahrl:Roundabout rdf:type owl:DatatypeProperty ;
+fahrl:roundabout rdf:type owl:DatatypeProperty ;
                  rdfs:domain fahrl:PracticeDrive ;
                  rdfs:range xsd:boolean .
 
-fahrl:RailwayCrossing rdf:type owl:DatatypeProperty ;
+fahrl:railwayCrossing rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean .
 
-fahrl:Reversing rdf:type owl:DatatypeProperty ;
+fahrl:reversing rdf:type owl:DatatypeProperty ;
                 rdfs:domain fahrl:PracticeDrive ;
                 rdfs:range xsd:boolean .
 
-fahrl:Uturn rdf:type owl:DatatypeProperty ;
+fahrl:uturn rdf:type owl:DatatypeProperty ;
             rdfs:domain fahrl:PracticeDrive ;
             rdfs:range xsd:boolean .
 
-fahrl:EmergencyBraking rdf:type owl:DatatypeProperty ;
+fahrl:emergencyBraking rdf:type owl:DatatypeProperty ;
                        rdfs:domain fahrl:PracticeDrive ;
                        rdfs:range xsd:boolean .
 
-fahrl:ParallelParking rdf:type owl:DatatypeProperty ;
+fahrl:parallelParking rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:PracticeDrive ;
                       rdfs:range xsd:boolean .
 
-fahrl:PerpendicularParking rdf:type owl:DatatypeProperty ;
+fahrl:perpendicularParking rdf:type owl:DatatypeProperty ;
                            rdfs:domain fahrl:PracticeDrive ;
                            rdfs:range xsd:boolean .
 
 
-fahrl:SpecialDrive rdf:type rdfs:Class ;
+fahrl:specialDrive rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
-fahrl:CountryRoadDrives rdf:type owl:DatatypeProperty ;
+fahrl:countryRoadDrives rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:SpecialDrive ;
                       rdfs:range xsd:boolean .
-fahrl:HighwayDrives rdf:type owl:DatatypeProperty ;
+fahrl:highwayDrives rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:SpecialDrive ;
                       rdfs:range xsd:boolean .
-fahrl:NightDrive rdf:type owl:DatatypeProperty ;
+fahrl:nightDrive rdf:type owl:DatatypeProperty ;
                       rdfs:domain fahrl:SpecialDrive ;
                       rdfs:range xsd:boolean .
 
 
-fahrl:PreTest rdf:type rdfs:Class ;
+fahrl:preTest rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
-fahrl:RightTurn rdf:type owl:DatatypeProperty ;
+fahrl:rightTurn rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
                    rdfs:range xsd:string .
-fahrl:LeftTurn rdf:type owl:DatatypeProperty ;
+fahrl:leftTurn rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
                    rdfs:range xsd:string .
-fahrl:Speed rdf:type owl:DatatypeProperty ;
+fahrl:speed rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
                    rdfs:range xsd:string .
-fahrl:BicycleProtection rdf:type owl:DatatypeProperty ;
+fahrl:bicycleProtection rdf:type owl:DatatypeProperty ;
                    rdfs:domain fahrl:PreTest ;
                    rdfs:range xsd:string.
 
