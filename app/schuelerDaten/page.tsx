@@ -75,11 +75,11 @@ export default function HalloPage() {
       Object.entries(formData).forEach(([key, value]) => {
         let predicate, object;
         if (key === 'hasDateOfBirth') {
-           predicate = namedNode('fahrl:hasDateOfBirth');
+           predicate = namedNode(`fahrl:${key}`);
            object = literal(value as string | number, namedNode('http://www.w3.org/2001/XMLSchema#date'));
           writer.addQuad(studentURI, predicate, object);
         } else if (key === 'hasEyewear') {
-           predicate = namedNode('fahrl:hasEyewear');
+           predicate = namedNode(`fahrl:${key}`);
            object =  literal(value as 'true', namedNode('http://www.w3.org/2001/XMLSchema#boolean'));
           writer.addQuad(studentURI, predicate, object);
         } else {
