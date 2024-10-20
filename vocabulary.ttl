@@ -30,7 +30,7 @@ fahrl:hasDrivingLesson rdf:type owl:ObjectProperty;
 
                        
 
-fahrl:practiceDrive rdf:type rdfs:Class ;
+fahrl:PracticeDrive rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
 fahrl:brakingExercises rdf:type owl:DatatypeProperty ;
@@ -96,7 +96,7 @@ fahrl:perpendicularParking rdf:type owl:DatatypeProperty ;
                            rdfs:range xsd:boolean .
 
 
-fahrl:specialDrive rdf:type rdfs:Class ;
+fahrl:SpecialDrive rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
 fahrl:countryRoadDrives rdf:type owl:DatatypeProperty ;
@@ -110,7 +110,7 @@ fahrl:nightDrive rdf:type owl:DatatypeProperty ;
                       rdfs:range xsd:boolean .
 
 
-fahrl:preTest rdf:type rdfs:Class ;
+fahrl:PreTest rdf:type rdfs:Class ;
                     rdfs:subClassOf fahrl:DrivingLesson .
 
 fahrl:rightTurn rdf:type owl:DatatypeProperty ;
