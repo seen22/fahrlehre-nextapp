@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import BackButton from '../BackButton/page';
+import { DataFactory, Writer } from 'n3';
 
 const FormWithDropdowns = () => {
   const { register, handleSubmit } = useForm();
@@ -36,29 +37,39 @@ const FormWithDropdowns = () => {
       console.error('No student ID found.');
       return;
     }
-    console.log('3 Dropdown data saved successfully');
+   
 
     try {
-      // RDF Triples für die Dropdown-Auswahl erstellen
-      const triples = Object.entries(dropdownList).map(([key, value]) => {
-        const predicate =`fahrl:${key}`;
-        const object = `"${value}"^^xsd:string`; 
-        return `<https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}> <${predicate}> ${object} .`;
-      }).join('\n');
+      const { namedNode, literal } = DataFactory;
+      const writer = new Writer();
+      const studentURI = `https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}`;
+      const lessonURI = `https://github.com/seen22/fahrlehre-nextapp/lesson-${studentId}`;
 
+      Object.entries(dropdownList).forEach(([key, value]) => {
+        const predicate = namedNode(`fahrl:${key}`);
+        const object = literal(value as string);
+        writer.addQuad(namedNode(lessonURI), predicate, object);
+      });
+      writer.addQuad(
+        namedNode(studentURI),
+        namedNode('fahrl:hasDrivingLesson'),
+        namedNode(lessonURI)
+      );
+
+      writer.end(async (error, result) => {
+        if (error) {
+          console.error('Error while serializing RDF:', error);
+
+          return;
+        }
       const updateQuery = `
         PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
-          PREFIX schema: <http://schema.org/>
           PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-          PREFIX owl: <http://www.w3.org/2002/07/owl#>
         INSERT DATA {
-          ${triples}
+          ${result}
         }
       `;
-      console.log('2 Dropdown data saved successfully');
-      // Anfrage an Fuseki senden
+
       const response = await fetch('http://localhost:3030/FahrlehrerApp/update', {
         method: 'POST',
         headers: {
@@ -66,15 +77,14 @@ const FormWithDropdowns = () => {
         },
         body: updateQuery,
       });
-      console.log('1 Dropdown data saved successfully');
       
-      const result = await response.text();
       if (response.ok) {
         console.log('Dropdown data saved successfully');
         window.location.href = `/DashboardPage?id=${studentId}`;
       } else {
         console.error('Failed to save dropdown data:', result);
       }
+    });
     } catch (error) {
       console.error('Error saving dropdown data:', error);
     }
@@ -112,10 +122,10 @@ const FormWithDropdowns = () => {
               className="ml-4 p-2 bg-gray-300 text-black rounded-md"
               onChange={handleChange}
             >
-              <option value="">Select</option>
+              <option value="">werten</option>
               <option value="+">+</option>
-              <option value="++">-</option>
-              <option value="-">X</option>
+              <option value="-">-</option>
+              <option value="X">X</option>
             </select>
           </div>
         ))}
