@@ -18,13 +18,14 @@ export default function SchuelerList() {
   // Fetch student names from the Fuseki server
   const fetchStudentNames = async () => {
     const studentQuery = `
-      PREFIX ex: <https://github.com/seen22/fahrlere-nextapp/>
-      SELECT ?subject ?firstName ?lastName
-      WHERE {
-        ?subject ex:firstName ?firstName .
-        ?subject ex:lastName ?lastName .
-      }
-    `;
+    PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
+
+SELECT ?subject ?firstName ?lastName
+WHERE {
+    ?subject <fahrl:hasFirstName> ?firstName .
+    ?subject <fahrl:hasLastName> ?lastName .
+}
+ `;
 
     try {
       const response = await fetch('http://localhost:3030/FahrlehrerApp/query', {
@@ -38,6 +39,8 @@ export default function SchuelerList() {
 
       if (!response.ok) {
         throw new Error(`Failed to fetch student names: ${response.statusText}`);
+      }else {
+        console.log(studentList);
       }
 
       const rdfData = await response.json();

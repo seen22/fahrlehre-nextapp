@@ -30,6 +30,7 @@ export default function HalloPage() {
         }
       `;
       console.log("SPARQL Update Query:", updateQuery);
+      console.log("result", rdfData);
 
     
       try {

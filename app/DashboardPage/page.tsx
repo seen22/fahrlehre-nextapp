@@ -39,19 +39,29 @@ export default function DashboardPage() {
   
     const latestDataQuery = `
       PREFIX fahrl: <https://github.com/seen22/fahrlehre-nextapp/vocabulary.rdf#>
-      PREFIX schema: <http://schema.org/>
-          PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-          PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-          PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-          PREFIX owl: <http://www.w3.org/2002/07/owl#>
+PREFIX schema: <http://schema.org/>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#>
 
-      SELECT ?subject ?predicate ?object
-      WHERE {
-        ?subject ?predicate ?object .
-        FILTER(?subject = <https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}>)
-      }
-      ORDER BY DESC(?timestamp)
-    `; 
+SELECT ?subject ?predicate ?object
+WHERE {
+  {
+    # Fetch student data based on the student form entry ID
+    ?subject ?predicate ?object .
+    FILTER(?subject = <https://github.com/seen22/fahrlehre-nextapp/formEntry-${studentId}>)
+  }
+  UNION
+  {
+    # Fetch lesson data associated with the student, using the same variable names
+    ?subject ?predicate ?object .
+    FILTER(?subject = <https://github.com/seen22/fahrlehre-nextapp/lesson-${studentId}>)
+  }
+}
+ORDER BY DESC(?timestamp)
+
+       `;
   
     try {
       // Fetch RDF data from Fuseki
@@ -66,6 +76,8 @@ export default function DashboardPage() {
   
       if (!response.ok) {
         throw new Error(`Failed to fetch data from Fuseki: ${response.statusText}`);
+      }else{
+        console.log("data to download",latestDataQuery);
       }
   
       // Get the response as JSON
@@ -136,25 +148,25 @@ export default function DashboardPage() {
   
 
   const studentDataKeys = ['fahrl:hasFirstName', 'fahrl:hasLastName', 'fahrl:hasDateOfBirth', 'fahrl:hasEyewear']; 
-  const sonderfahrtKeys = ['fahrl:CountryRoadDrive', 'fahrl:Highway','fahrl:NightDrive'];
+  const sonderfahrtKeys = ['fahrl:countryRoadDrive', 'fahrl:highway','fahrl:nightDrive'];
   const vorpruefungsKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', 'fahrl:railwayCrossing', 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance', 'fahrl:speedAdjustment']; // Keys that belong to "Users Page"
   const UebungsfahrtKeys = [
-    'fahrl:BrakingExercises',
-    'fahrl:GearShiftingExercises',
-    'fahrl:SpeedAdjustment',
-    'fahrl:RoadUsage',
-    'fahrl:LaneChange',
-    'fahrl:Turning',
-    'fahrl:RightBeforeLeft',
-    'fahrl:PriorityRoadSigns',
-    'fahrl:PedestrianCrossings',
-    'fahrl:Roundabout',
-    'fahrl:RailwayCrossing',
-    'fahrl:Reversing',
-    'fahrl:Uturn',
-    'fahrl:EmergencyBraking',
-    'fahrl:ParallelParking',
-    'fahrl:PerpendicularParking'
+    'fahrl:brakingExercises',
+    'fahrl:gearShiftingExercises',
+    'fahrl:speedAdjustment',
+    'fahrl:roadUsage',
+    'fahrl:laneChange',
+    'fahrl:turning',
+    'fahrl:rightBeforeLeft',
+    'fahrl:priorityRoadSigns',
+    'fahrl:pedestrianCrossings',
+    'fahrl:roundabout',
+    'fahrl:railwayCrossing',
+    'fahrl:reversing',
+    'fahrl:uturn',
+    'fahrl:emergencyBraking',
+    'fahrl:parallelParking',
+    'fahrl:perpendicularParking'
   ];
   
   
