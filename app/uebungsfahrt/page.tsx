@@ -133,10 +133,6 @@ const Uebungsfahrt = () => {
             <label className="text-lg font-medium">Kreisverkehr</label>
             <input type="checkbox" {...register('roundabout')} className="h-5 w-5" />
           </div>
-          <div className="flex justify-between items-center">
-            <label className="text-lg font-medium">Bahnübergang</label>
-            <input type="checkbox" {...register('railwayCrossing')} className="h-5 w-5" />
-          </div>
         </div>
 
         <div>
@@ -172,6 +168,9 @@ const Uebungsfahrt = () => {
 };
 
 export default Uebungsfahrt;
+
+
+
 
 
 

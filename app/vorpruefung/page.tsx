@@ -106,6 +106,7 @@ const FormWithDropdowns = () => {
           { label: 'Stop', name: 'stop' },
           { label: 'Rechtsabbiegen', name: 'rightTurn' },
           { label: 'Rechtsabbiegen mehrspurig', name: 'multiLaneRightTurn' },
+         //
           { label: 'Bahnübergang', name: 'railwayCrossing' },
           { label: 'Linksabbiegen', name: 'leftTurn' },
           { label: 'Linksabbiegen mehrspurig', name: 'multiLaneLeftTurn' },
@@ -113,7 +114,7 @@ const FormWithDropdowns = () => {
           { label: 'Fahrradschutzstreifen', name: 'bikeLane' },
           { label: 'Fahrrad überholen', name: 'bikeOvertake' },
           { label: 'Eingangsortschaft', name: 'entrance' },
-          { label: 'Geschwindigkeitsanpassung', name: 'speedAdjustment' },
+         // { label: 'Geschwindigkeitsanpassung', name: 'speedAdjustment' },
         ].map(({ label, name }) => (
           <div key={name} className="flex items-center justify-between">
             <label className="text-sm font-medium">{label}</label>
@@ -122,7 +123,7 @@ const FormWithDropdowns = () => {
               className="ml-4 p-2 bg-gray-300 text-black rounded-md"
               onChange={handleChange}
             >
-              <option value="">werten</option>
+              <option value="">Bewerten</option>
               <option value="+">+</option>
               <option value="-">-</option>
               <option value="X">X</option>

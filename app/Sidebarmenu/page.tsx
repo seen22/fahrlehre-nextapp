@@ -1,7 +1,7 @@
 'use client'; // Direktive für die Verwendung von React-Hooks
 
 import { useState } from 'react';
-import { FiMenu, FiX } from 'react-icons/fi'; // FiX für das Schließen-Symbol
+import { FiMenu, FiX,FiHome } from 'react-icons/fi'; // FiX für das Schließen-Symbol
 import Link from 'next/link';
 import SchuelerList from '../SchuelerList/page';
 
@@ -23,12 +23,12 @@ export default function Sidebarmenu() {
       {isOpen && (
         <nav className="fixed top-12 left-0 w-64 h-full bg-gray-800 p-6 z-40"> {/* top-12 sorgt für mehr Platz nach oben */}
           <ul className="space-y-4">
-            <li>
-              <Link href="/schuelerDaten" className="block text-lg font-medium hover:text-blue-400 transition" onClick={toggleMenu}>
-                Schüler Formular
+          <li>
+              <Link href="/" className="flex items-center text-lg font-medium hover:text-blue-400 transition" onClick={toggleMenu}>
+                <FiHome className="mr-2" /> Startseite
               </Link>
             </li>
-            {/* <li>
+            {/*<li>
               <Link href="/uebungsfahrt" className="block text-lg font-medium hover:text-blue-400 transition" onClick={toggleMenu}>
               Übungsfahrt
               </Link>
@@ -43,7 +43,7 @@ export default function Sidebarmenu() {
                 Dashboard
               </Link>
             </li> */}
-            <SchuelerList></SchuelerList>
+            {/* <SchuelerList></SchuelerList> */}
           </ul>
         </nav>
       )}

@@ -94,7 +94,7 @@ const Sonderfahrt = () => {
           </div>
           <div className="flex justify-between items-center">
             <label className="text-lg font-medium">Autobahn</label>
-            <input type="checkbox" {...register('highwayDrive')} className="h-5 w-5" />
+            <input type="checkbox" {...register('highway')} className="h-5 w-5" />
           </div>
           <div className="flex justify-between items-center">
             <label className="text-lg font-medium">Nachtsfahrt</label>

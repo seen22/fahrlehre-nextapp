@@ -20,7 +20,10 @@ export default function RootLayout({
     <html lang="en">
       <body className="flex min-h-screen bg-gray-900 text-gray-100">
 
-            {/* <Sidebarmenu></Sidebarmenu>  */}
+      <Link href="/startseite">
+        
+      </Link>
+    
         <main className="flex-1 p-6">
           {children}
         </main>

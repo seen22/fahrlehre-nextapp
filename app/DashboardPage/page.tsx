@@ -144,16 +144,18 @@ ORDER BY DESC(?timestamp)
   // doc.text("Fahrschule Datenübersicht", 10, 20);
   
   let y = 40; // Starting y position for content
+  const columnWidth = 90; // Set width for each column
+    let x1 = 10; // x position for the first column
+    let x2 = x1 + columnWidth + 10; 
   doc.setFontSize(12);
   
 
   const studentDataKeys = ['fahrl:hasFirstName', 'fahrl:hasLastName', 'fahrl:hasDateOfBirth', 'fahrl:hasEyewear']; 
   const sonderfahrtKeys = ['fahrl:countryRoadDrive', 'fahrl:highway','fahrl:nightDrive'];
-  const vorpruefungsKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', 'fahrl:railwayCrossing', 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance', 'fahrl:speedAdjustment']; // Keys that belong to "Users Page"
+  const vorpruefungsKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', , 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance']; // Keys that belong to "Users Page"
   const UebungsfahrtKeys = [
     'fahrl:brakingExercises',
     'fahrl:gearShiftingExercises',
-    'fahrl:speedAdjustment',
     'fahrl:roadUsage',
     'fahrl:laneChange',
     'fahrl:turning',
@@ -168,8 +170,40 @@ ORDER BY DESC(?timestamp)
     'fahrl:parallelParking',
     'fahrl:perpendicularParking'
   ];
-  
-  
+   
+  const keyTranslations: { [key: string]: string } = {
+    'fahrl:hasFirstName': 'Vorname',
+    'fahrl:hasLastName': 'Nachname',
+    'fahrl:hasDateOfBirth': 'Geburtsdatum',
+    'fahrl:hasEyewear': 'Sehhilfe',
+    'fahrl:emergencyBraking': 'Gefahrenbremsung',
+    'fahrl:laneChange': 'Spurwechsel',
+    'fahrl:parallelParking': 'Parallelparken',
+    'fahrl:pedestrianCrossings': 'Fußgängerüberwege',
+    'fahrl:perpendicularParking': 'Senktes Parken',
+    'fahrl:priorityRoadSigns': 'Vorfahrtstraßenzeichen',
+    'fahrl:reversing': 'Rückwärtsfahren',
+    'fahrl:rightBeforeLeft': 'Rechts vor Links',
+    'fahrl:roundabout': 'Kreisverkehr',
+    'fahrl:turning': 'Abbiegen',
+    'fahrl:uturn': 'Wenden',
+    'fahrl:brakingExercises': 'Bremsübungen',
+    'fahrl:gearShiftingExercises': 'Schaltübungen',
+    'fahrl:roadUsage': 'Straßennutzung',
+    'fahrl:nightDrive': 'Nachtfahrt',
+    'fahrl:countryRoadDrive': 'Landstraßenfahrt',
+    'fahrl:bikeLane': 'Radweg',
+    'fahrl:bikeOvertake': 'Überholen von Radfahrern',
+    'fahrl:entrance': 'Einfahrt',
+    'fahrl:gearSelection': 'Gangwahl',
+    'fahrl:leftTurn': 'Linksabbiegen',
+    'fahrl:multiLaneLeftTurn': 'Linksabbiegen mehrspuriges',
+    'fahrl:railwayCrossing': 'Bahnübergang',
+    'fahrl:rightTurn': 'Rechtsabbiegen  ',
+    'fahrl:multiLaneRightTurn': 'Rechtsabbiegen Mehrspurige',
+    'fahrl:stop': 'Stop  ',
+    'fahrl:highway':'Autobahn'
+  };
   
 
   const studentData: { [key: string]: string } = {};
@@ -192,17 +226,24 @@ ORDER BY DESC(?timestamp)
 
   if (Object.keys(studentData).length > 0) {
     doc.setFontSize(14);
-    doc.text("Schülerdaten:", 10, y);
+    doc.text("Schülerdaten:", x1, y);
     y += 10;
     doc.setFontSize(12);
   
     for (const [key, value] of Object.entries(studentData)) {
-      doc.text(`${key}: ${value}`, 10, y);
+      const displayKey = keyTranslations[key] || key;
+      if (key === 'fahrl:hasEyewear') {
+        doc.text(`${displayKey}: ${value === 'true' ? 'mit Sehhilfe' : 'Ohne'}`, x1, y);
+    } else {
+        doc.text(`${displayKey}: ${value}`, x1, y);
+    }
       y += 10;
   
-      if (y > 280) { // Page break if necessary
+      if (y > 280) { 
         doc.addPage();
         y = 10;
+        x1 = 10; // Reset x position for the new page
+        x2 = x1 + columnWidth + 10;
       }
     }
   }
@@ -211,54 +252,63 @@ ORDER BY DESC(?timestamp)
   if (Object.keys(Uebungsfahrtdata).length > 0) {
     y += 10; 
     doc.setFontSize(14);
-    doc.text("Übungsfahrt:", 10, y);
+    doc.text("Übungsfahrt:", x1, y);
     y += 10;
     doc.setFontSize(12);
   
     for (const [key, value] of Object.entries(Uebungsfahrtdata)) {
-      doc.text(`${key}: ${value}`, 10, y);
+      const displayKey = keyTranslations[key] || key;
+      doc.text(`${displayKey}: ${value === 'true' ? 'erledigt' : ''}`, x1, y);
       y += 10;
   
-      if (y > 280) { // Page break if necessary
+      if (y > 280) { 
         doc.addPage();
         y = 10;
-      }
+        x1 = 10; // Reset x position for the new page
+        x2 = x1 + columnWidth + 10; // Update second column x position
+    }
     }
   }
 
   if (Object.keys(sonderfahrtdata).length > 0) {
     y += 10; 
     doc.setFontSize(14);
-    doc.text("Sonderfahrt:", 10, y);
+    doc.text("Sonderfahrt:", x1, y);
     y += 10;
     doc.setFontSize(12);
   
     for (const [key, value] of Object.entries(sonderfahrtdata)) {
-      doc.text(`${key}: ${value}`, 10, y);
+      const displayKey = keyTranslations[key] || key;
+      doc.text(`${displayKey}: ${value === 'true' ? 'erledigt' : ''}`, x1, y);
       y += 10;
   
       if (y > 280) { 
         doc.addPage();
         y = 10;
-      }
+        x1 = 10; // Reset x position for the new page
+        x2 = x1 + columnWidth + 10; // Update second column x position
+    }
     }
   }
 
   if (Object.keys(vorpruefungsdata).length > 0) {
     y += 10; // Add some spacing before the next section
     doc.setFontSize(14); 
-    doc.text("Vorprüfung:", 10, y);
+    doc.text("Vorprüfung:", x1, y);
     y += 10;
     doc.setFontSize(12);
   
     for (const [key, value] of Object.entries(vorpruefungsdata)) {
-      doc.text(`${key}: ${value}`, 10, y);
+      const displayKey = keyTranslations[key] || key;
+      doc.text(`${displayKey}: ${value ? value : ''}`, x1, y); 
       y += 10;
   
-      if (y > 280) { // Page break if necessary
+      if (y > 280) { 
         doc.addPage();
         y = 10;
-      }
+        x1 = 10; // Reset x position for the new page
+        x2 = x1 + columnWidth + 10; // Update second column x position
+    }
     }
   }
   
@@ -270,7 +320,7 @@ ORDER BY DESC(?timestamp)
 
   return (
     <div className="min-h-screen flex flex-col justify-center items-center bg-gray-900">
-      <h1 className="text-4xl font-bold text-white mb-10">Fahrlehrer App</h1>
+      <h1 className="text-4xl font-bold text-white mb-10">FahrMemo App</h1>
       
       <div className="space-y-6 w-full max-w-xs">
 

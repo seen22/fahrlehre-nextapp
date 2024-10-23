@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { FiPlus } from 'react-icons/fi';
-import SchuelerList from './SchuelerList/page';
+import SchuelerList from '../SchuelerList/page';
 
 export default function startseite() {
 
