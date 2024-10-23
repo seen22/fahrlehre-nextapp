@@ -7,6 +7,7 @@ import Sidebarmenu from '../Sidebarmenu/page';
 export default function DashboardPage() {
   const router = useRouter();
   const [studentId, setStudentId] = useState<string | null>(null);
+  
 
   const navigateTo = (path: string) => {
     router.push(`${path}?id=${studentId}`);
@@ -152,7 +153,7 @@ ORDER BY DESC(?timestamp)
 
   const studentDataKeys = ['fahrl:hasFirstName', 'fahrl:hasLastName', 'fahrl:hasDateOfBirth', 'fahrl:hasEyewear']; 
   const sonderfahrtKeys = ['fahrl:countryRoadDrive', 'fahrl:highway','fahrl:nightDrive'];
-  const vorpruefungsKeys = ['fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', , 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance']; // Keys that belong to "Users Page"
+  const vorpruefungsKeys = ['fahrl:city','fahrl:postcode','fahrl:street','fahrl:weatherDescription','fahrl:temperature','fahrl:stop', 'fahrl:rightTurn', 'fahrl:multiLaneRightTurn', , 'fahrl:leftTurn', 'fahrl:multiLaneLeftTurn', 'fahrl:gearSelection', 'fahrl:bikeLane', 'fahrl:bikeOvertake', 'fahrl:entrance']; // Keys that belong to "Users Page"
   const UebungsfahrtKeys = [
     'fahrl:brakingExercises',
     'fahrl:gearShiftingExercises',
@@ -202,7 +203,12 @@ ORDER BY DESC(?timestamp)
     'fahrl:rightTurn': 'Rechtsabbiegen  ',
     'fahrl:multiLaneRightTurn': 'Rechtsabbiegen Mehrspurige',
     'fahrl:stop': 'Stop  ',
-    'fahrl:highway':'Autobahn'
+    'fahrl:highway':'Autobahn',
+    'fahrl:weatherDescription': 'Wetter',
+    'fahrl:temperature': 'Temperatur',
+    'fahrl:street': 'Straße',
+    'fahrl:city': 'Statd',
+    'fahrl:postcode': 'PLZ',
   };
   
 
@@ -297,24 +303,42 @@ ORDER BY DESC(?timestamp)
     doc.text("Vorprüfung:", x1, y);
     y += 10;
     doc.setFontSize(12);
-  
-    for (const [key, value] of Object.entries(vorpruefungsdata)) {
-      const displayKey = keyTranslations[key] || key;
-      doc.text(`${displayKey}: ${value ? value : ''}`, x1, y); 
+
+    if (vorpruefungsdata['fahrl:street'] || vorpruefungsdata['fahrl:city'] || vorpruefungsdata['fahrl:postcode']) {
+      const address = `Straße ${vorpruefungsdata['fahrl:street'] || ''}, ${vorpruefungsdata['fahrl:city'] || ''} ${vorpruefungsdata['fahrl:postcode'] || ''}`.trim();
+      doc.text(address, x1, y);
       y += 10;
+    }
   
-      if (y > 280) { 
+    // Display weather data
+    if (vorpruefungsdata['fahrl:weatherDescription'] || vorpruefungsdata['fahrl:temperature']) {
+      const weather = `Wetter: ${vorpruefungsdata['fahrl:temperature'] || ''}°C,  (${vorpruefungsdata['fahrl:weatherDescription']|| ''}) `.trim();
+      doc.text(weather, x1, y);
+      y += 10;
+    }
+  
+  }
+  
+  for (const [key, value] of Object.entries(vorpruefungsdata)) {
+    if (!['fahrl:street', 'fahrl:city', 'fahrl:postcode', 'fahrl:weatherDescription', 'fahrl:temperature'].includes(key)) {
+      const displayKey = keyTranslations[key] || key;
+      doc.text(`${displayKey}: ${value ? value : ''}`, x1, y);
+      y += 10;
+
+      if (y > 280) {
         doc.addPage();
         y = 10;
-        x1 = 10; // Reset x position for the new page
-        x2 = x1 + columnWidth + 10; // Update second column x position
-    }
+        x1 = 10;
+      }
     }
   }
+  
+
   
   // Save the PDF file
   doc.save('fahrschule_daten.pdf');
   };
+
 
 
 
